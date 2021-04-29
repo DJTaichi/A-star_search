@@ -1,4 +1,3 @@
-//import java.util.Collections;
 import java.util.ArrayList;
 
 
@@ -25,6 +24,145 @@ class Pazzle{
 
         return count;
     }
+
+    int h2nCalc(){
+        int distance=0;
+
+        //0の距離
+        switch (coordinate.indexOf(0)) {
+            case 1,7:
+                distance += 1;
+                break;
+            case 2,6,8:
+                distance += 2;
+                break;
+            case 3,5:
+                distance += 3;
+                break;
+            case 4:
+                distance += 4;
+                break; 
+            default:
+                break;
+        }
+
+        //1の距離
+        switch (coordinate.indexOf(1)) {
+            case 0,2,8:
+                distance += 1;
+                break;
+            case 3,5,7:
+                distance += 2;
+                break;
+            case 4,6:
+                distance += 3;
+                break;   
+            default:
+                break;
+        }
+
+        //2の距離
+        switch (coordinate.indexOf(2)) {
+            case 1,3:
+                distance += 1;
+                break;
+            case 0,4,8:
+                distance += 2;
+                break;
+            case 5,7:
+                distance += 3;
+                break;
+            case 6:
+                distance += 4;
+                break;
+            default:
+                break;
+        }
+
+        //3の距離
+        switch (coordinate.indexOf(3)) {
+        case 2,4,8:
+            distance += 1;
+            break;
+        case 1,5,7:
+            distance += 2;
+            break;
+        case 0,6:
+            distance += 3;
+            break;
+        default:
+            break;
+        }
+
+        //4の距離
+        switch (coordinate.indexOf(4)) {
+        case 3,5:
+            distance += 1;
+            break;
+        case 2,6,8:
+            distance += 2;
+            break;
+        case 1, 7:
+            distance += 3;
+            break;
+        case 0:
+            distance += 4;
+            break;
+        default:
+            break;
+        }
+
+        // 5の距離
+        switch (coordinate.indexOf(5)) {
+        case 4,6,8:
+            distance += 1;
+            break;
+        case 1,3,7:
+            distance += 2;
+            break;
+        case 0, 2:
+            distance += 3;
+            break;
+        default:
+            break;
+        }
+
+        // 6の距離
+        switch (coordinate.indexOf(6)) {
+        case 5,7:
+            distance += 1;
+            break;
+        case 0,4,8:
+            distance += 2;
+            break;
+        case 1, 3:
+            distance += 3;
+            break;
+        case 2:
+            distance += 4;
+            break;
+        default:
+            break;
+        }
+
+        // 7の距離
+        switch (coordinate.indexOf(7)) {
+        case 0, 6, 8:
+            distance += 1;
+            break;
+        case 1, 3, 5:
+            distance += 2;
+            break;
+        case 2,4:
+            distance += 3;
+            break;
+        default:
+            break;
+        }
+
+        return distance;
+    }
+
     void printPazzle(){
         System.out.print(coordinate.get(0));
         System.out.print(coordinate.get(1));

@@ -1,7 +1,6 @@
 import java.util.Collections;
 import java.util.ArrayList;
 
-
 class Agent{
 
     public static void main(String args[]){
@@ -28,17 +27,16 @@ class Agent{
 
         NodeState firstNode = new NodeState(firstPazzle);
 
-        firstNode.cost = firstNode.current.h1nCalc();
+        firstNode.cost = firstNode.current.h2nCalc();
 
         open.add(firstNode);
         
-
         while(true) {
 
             System.out.println("-----------------------------------");
 
-            //オープンリストが空なら終了
-            if (open.size() == 0){
+            //オープンリストが空なら終了（一応）
+            if (open.size() == 0){  
                 return;
             }
 
@@ -69,7 +67,7 @@ class Agent{
                 child.former = open.get(min);
                 child.current = open.get(min).swap(open.get(min).current.moveTo()[i]);
                 child.current.gn = child.former.current.gn + 1;
-                child.current.hn = child.current.h1nCalc();
+                child.current.hn = child.current.h2nCalc();
                 child.cost = child.current.gn + child.current.hn;
                 children.add(child);
             }
@@ -77,6 +75,8 @@ class Agent{
             //親ノードをcloseリストに追加
             close.add(open.get(min));
             open.remove(min);
+            System.out.print("現在のclosedリストのサイズ: ");
+            System.out.println(close.size());
 
             //小ノードのパズルをプリント
             for(i=0;i<children.size();i++){
@@ -94,15 +94,17 @@ class Agent{
             //終状態が小ノードに含まれていたら終了
             for (i = 0; i < children.size(); i++) {
                 if(children.get(i).goalCheck()){
+                    System.out.print("最初のh(n):");
+                    System.out.println(firstNode.cost);
                     return;
                 }
             }
-
             //closeリストに含まれているnを子供ノードの集合から削除する
             for(i=0;i<close.size();i++){
                 for(j=0;j<children.size();j++){
-                    if(close.get(i).current.equals(children.get(j).current)){
+                    if(close.get(i).current.coordinate.equals(children.get(j).current.coordinate)){
                         children.remove(j);
+                        System.out.println("closedリストに含まれていたため削除しました。");
                     }
                 }
             }
@@ -114,13 +116,13 @@ class Agent{
             //openリストに追加する。但し、コストが低いものがすでに存在していたら何もしない。
             for (i = 0; i < sizeOpen; i++) {
                 for (j = 0; j < children.size(); j++) {
-                    if (open.get(i).current.equals(children.get(j).current)) {
+                    if (open.get(i).current.coordinate.equals(children.get(j).current.coordinate)) {
                         //コストの低い方を残す
                         if(open.get(i).cost <= children.get(j).cost){
-                            //System.out.println("既存のノードのコストが勝ちました");
+                            System.out.println("既存のノードのコストが勝ちました");
                             continue;
                         }else{
-                            //System.out.println("最新のノードのコストが勝ちました");
+                            System.out.println("最新のノードのコストが勝ちました");
                             open.remove(i);
                             System.out.println("openに追加しました1");
                             open.add(children.get(j));
@@ -131,22 +133,26 @@ class Agent{
 
             sizeOpen = open.size();
 
+
             //全く新しいノードが見つかった時openに追加
             for(j=0;j<children.size();j++){
+                int check = 1;
                 for(i=0;i<sizeOpen;i++){
-                    if(open.get(i).current.equals(children.get(j).current)){
-                        break;
+                    if(open.get(i).current.coordinate.equals(children.get(j).current.coordinate)){
+                        check *= 0;
                     }
                 }
-                System.out.println("openに追加しました2");
-                open.add(children.get(j));
+                if(check == 1){
+                    System.out.println("openに追加しました2");
+                    open.add(children.get(j));
+                }
             }
 
             //closedリストに含まれるnに対して、今回の方がコストがよければnをclosedリストから削除して、今回のnをopenリストに入れる
             for (i = 0; i < close.size(); i++) {
                 for (j = 0; j < children.size(); j++) {
-                    if (close.get(i).current.equals(children.get(j).current)) {
-                        if(close.get(i).cost > children.get(i).cost){
+                    if (close.get(i).current.coordinate.equals(children.get(j).current.coordinate)) {
+                        if(close.get(i).cost > children.get(j).cost){
                             close.remove(i);
                             System.out.println("openに追加しました3");
                             open.add(children.get(j));

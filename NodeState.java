@@ -6,14 +6,12 @@ public class NodeState {
     //初期値ありのコンストラクタ
     NodeState(Pazzle pazzle){
         current = pazzle;
-        current.hn = current.h1nCalc();
+        current.hn = current.h2nCalc();
     }
 
     //初期値なしのコンストラクタ
     NodeState(){
-
     }
-
 
     //cの数字と8を入れ替える関数
     public Pazzle swap(int c){
@@ -47,5 +45,4 @@ public class NodeState {
         }
         return true;
     }
-
 }
