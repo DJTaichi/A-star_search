@@ -164,17 +164,17 @@ class Pazzle{
     }
 
     void printPazzle(){
-        System.out.print(coordinate.get(0));
-        System.out.print(coordinate.get(1));
-        System.out.println(coordinate.get(2));
+        System.out.print(coordinate.get(0) +1);
+        System.out.print(coordinate.get(1) +1);
+        System.out.println(coordinate.get(2) +1);
 
-        System.out.print(coordinate.get(7));
-        System.out.print(coordinate.get(8));
-        System.out.println(coordinate.get(3));
+        System.out.print(coordinate.get(7) + 1);
+        System.out.print(coordinate.get(8) + 1);
+        System.out.println(coordinate.get(3) + 1);
 
-        System.out.print(coordinate.get(6));
-        System.out.print(coordinate.get(5));
-        System.out.println(coordinate.get(4));
+        System.out.print(coordinate.get(6) + 1);
+        System.out.print(coordinate.get(5) + 1);
+        System.out.println(coordinate.get(4) + 1);
     }
 
     public int[] moveTo(){
